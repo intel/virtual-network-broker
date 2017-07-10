@@ -1,0 +1,25 @@
+<div ng-show="error" class="login-error alert alert-danger">{{error}}</div>
+
+<form name="form" class="form-login">
+    <h1>Login</h1><br>
+    <div class="login-cred">
+        <label>Username</label>
+        <i class="fa fa-key"></i>
+        <input name="username" class="form-control" ng-model="username" required /> 
+        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+    </div>
+
+    <div class="login-cred">
+        <label>Password</label>
+        <i class="fa fa-lock"></i>
+        <input name="password" type="password" class="form-control" ng-model="password" required />
+        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+    </div>
+
+    <div class="form-actions">
+        <md-button class="md-raised create_scope_button login-button" ng-disabled="form.$invalid || dataLoading" ng-click="login()">
+             <i class="fa fa-sign-in"></i>Login
+        </md-button>
+    </div>
+
+</form>

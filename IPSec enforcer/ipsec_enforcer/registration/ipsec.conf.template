@@ -1,0 +1,39 @@
+# ipsec.conf - strongSwan IPsec configuration file
+
+config setup
+
+{% for ipsec_connection in ipsec_strongswan_connections %}
+
+conn {{ipsec_connection.connection_name}}
+    	keyexchange={{ipsec_connection.ikepolicy.ike_version}}
+    	{% if ipsec_connection.authby %}
+    	authby={{ipsec_connection.authby}}
+    	{% endif %}
+    	dpdaction={{ipsec_connection.dpdaction}}
+    	dpddelay={{ipsec_connection.dpddelay}}
+    	dpdtimeout={{ipsec_connection.dpdtimeout}}
+    	ike={{ipsec_connection.ikepolicy.ike}}
+    	ikelifetime={{ipsec_connection.ikepolicy.ikelifetime}}
+    	lifetime={{ipsec_connection.ipsecpolicy.lifetime}}
+    	esp={{ipsec_connection.ipsecpolicy.esp}}
+        keyingtries=1
+    	rekeymargin=3m
+    	mobike=no
+    	auto=route
+    	type={{ipsec_connection.ipsecpolicy.type}}
+        left={{ipsec_connection.left}}
+        {% if ipsec_connection.leftcert %}
+        leftcert={{ipsec_connection.leftcert}}
+        {% endif %}
+		{% if ipsec_connection.leftsubnet %}
+    	leftsubnet={{ipsec_connection.leftsubnet}}
+    	{% endif %}
+    	leftid={{ipsec_connection.left_id}}
+    	leftfirewall=yes
+    	right={{ipsec_connection.right}}
+		{% if ipsec_connection.rightsubnet %}
+    	rightsubnet={{ipsec_connection.rightsubnet}}
+    	{% endif %}
+    	rightid={{ipsec_connection.right_id}}
+
+{% endfor %}

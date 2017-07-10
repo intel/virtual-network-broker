@@ -1,0 +1,79 @@
+<div class="main" ng-controller="UserDetailsController" id='user_details'>
+</div>
+
+<h1 class="page-header">User: {{detailed_scope.username}}</h1>
+
+<div class="table-reponsive" id="scope_list_details">
+  <table class="table table-striped" >
+    <tr>
+      <th>UUID</th>
+      <td>{{ detailed_scope.id }}</td>
+    </tr>
+
+    <tr>
+      <th>Name</th>
+      <td>{{ detailed_scope.username }}</td>
+    </tr>
+
+    <tr>
+      <th>Email</th>
+      <td>{{ detailed_scope.email }}</td>
+    </tr>
+
+    <tr>
+      <th>Admin?</th>
+      <td>{{ detailed_scope.is_admin }}</td>
+    </tr>
+
+    <tr>
+      <th>Auth by LDAP?</th>
+      <td>{{ detailed_scope.auth_by_ldap }}</td>
+    </tr>
+
+    <tr>
+      <th>LDAP Config ID</th>
+       <td>
+         <table class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>
+                <a href ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                UUID
+                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                <a href ng-click="sortType = 'ldap_uri'; sortReverse = !sortReverse">
+                LDAP URI
+                <span ng-show="sortType == 'ldap_uri' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'ldap_uri' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                <a href ng-click="sortType = 'relative_distinguished_name'; sortReverse = !sortReverse">
+                Relative Distinguished Name
+                <span ng-show="sortType == 'relative_distinguished_name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'relative_distinguished_name' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                <a href ng-click="sortType = 'ldap_version'; sortReverse = !sortReverse">
+                LDAP Version
+                <span ng-show="sortType == 'ldap_version' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'ldap_version' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ldap in detailed_scope | filter:searchText | orderBy:sortType:sortReverse">
+                <td><input type="checkbox" ng-model="selected[ldap.id]"></input>
+                <td>{{ ldap.id}}</td>
+                <td>{{ ldap.ldap_uri}}</td>
+                <td>{{ ldap.relative_distinguished_name}}</td>
+                <td>{{ ldap.ldap_version}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,120 @@
+<div class="main" ng-controller="GroupDetailsController" id='group_details'>
+    
+
+</div>
+
+  <h1 class="page-header">Group: {{detailed_scope.name}}</h1>
+  
+<div class="table-reponsive" id="scope_list_details">
+	<table class="table table-striped" >
+    <tr>
+      <th>UUID</th>
+      <td>{{ detailed_scope.id }}</td>
+    </tr>
+
+    <tr>
+      <th>Name</th>
+      <td>{{ detailed_scope.name }}</td>
+    </tr>
+
+    <tr>
+      <th>Users</th>
+      <td>
+        <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>
+                  <a href ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                  UUID
+                  <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'username'; sortReverse = !sortReverse">
+                  Name
+                  <span ng-show="sortType == 'username' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'username' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'email'; sortReverse = !sortReverse">
+                  Email
+                  <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'is_admin'; sortReverse = !sortReverse">
+                  Admin?
+                  <span ng-show="sortType == 'is_admin' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'is_admin' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'description'; sortReverse = !sortReverse">
+                  Description
+                  <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  Delete
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="user in detailed_scope.users | filter:searchText | orderBy:sortType:sortReverse">
+              <td>{{ user.id }}</a></td>
+              <td>{{ user.username }}</a></td>
+              <td>{{ user.email }}</a></td>
+              <td>{{ user.is_admin }}</a></td>
+              <td class="description-field">{{ user.description }}</a></td>
+              <td><md-button ng-click="delete($event, 'users' ,user.id)"><i class='fa fa-trash' ></i></md-button></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Certificate Users</th>
+      <td>
+        <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>
+                  <a href ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                  UUID
+                  <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'subject_pattern'; sortReverse = !sortReverse">
+                  Subject Pattern
+                  <span ng-show="sortType == 'subject_pattern' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'subject_pattern' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  <a href ng-click="sortType = 'description'; sortReverse = !sortReverse">
+                  Description
+                  <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+                  <th>
+                  Delete
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="certificate_user in detailed_scope.certificate_users | filter:searchText | orderBy:sortType:sortReverse">
+              <td>{{ certificate_user.id }}</a></td>
+              <td>{{ certificate_user.subject_pattern }}</a></td>
+              <td class="description-field">{{ certificate_user.description }}</a></td>
+              <td><md-button ng-click="delete($event, 'certificate_users' ,certificate_user.id)"><i class='fa fa-trash' ></i></md-button></td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ detailed_scope.description }}</td>
+    </tr>
+	</table>
+</div>

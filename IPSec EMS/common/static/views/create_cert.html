@@ -1,0 +1,79 @@
+<md-dialog aria-label="Create Certificate"  ng-controller="CreateCertController" ng-cloak class='create_scope_modal md-inline-form'>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create Certificate</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    X
+                </md-button>
+            </div>
+            <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+                <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                    <md-content layout-padding>
+
+                        <div>
+                            <form name="createCertForm">
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="certificate-inputs">Certificate Name</label>
+                                        <input ng-model="name">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="certificate-inputs">Right ID</label>
+                                        <input ng-model="right_id">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="certificate-inputs">VPN CA Certificate</label>
+                                        <md-select ng-model="vpncacertificate_id" flex-gt-sm>
+                                            <md-option ng-repeat="vpncacertificate in available_scopes" ng-value="vpncacertificate.id">{{vpncacertificate.id}} -- {{vpncacertificate.name}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="certificate-inputs">Upload Certificate</label>
+                                        <input type="file" file="file1" required />
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label class="certificate-inputs">Upload Key</label>
+                                        <input type="file" file="file2" required />
+                                    </md-input-container>
+                                </div>
+
+                                <md-dialog-actions layout="row">
+                                    <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                    <span flex></span>
+                                    <md-button class='form-btns btn-submit' ng-click="submit()">Submit</md-button>
+                                </md-dialog-actions>
+
+                            </form>
+                        </div>
+                    </md-content>
+                </md-content>
+            </div>
+
+            <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+                <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+                <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+                {{status_msg}}<br>
+                <div ng-repeat="(field, description) in error_messages">{{field}}: <span ng-repeat="msg in description">{{msg}}{{ $last ? '' :', ' }}<span><br/><div>
+            </md-input-container>
+
+        </md-dialog-content>
+</md-dialog>
+

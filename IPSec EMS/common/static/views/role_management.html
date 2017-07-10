@@ -1,0 +1,93 @@
+<div class="main">
+
+    <h1 class="page-header">{{title}}</h1>
+    <div class="ems_main_buttons">
+
+        <md-input-container md-no-float style="margin-bottom: 0px;">
+           <input ng-model="searchText" id="search_text_inp" placeholder="Search">
+        </md-input-container>
+
+        <md-button class="md-primary md-raised create_scope_button" ng-click="createRoleDialog($event)"  >
+             <i class="fa fa-plus"></i>Create Role
+        </md-button>
+        <md-button class="md-primary md-raised btn-danger" ng-click="selectedDelete($event)" >
+         <i class="fa fa-trash"></i>Delete Role
+        </md-button>
+
+    </div>
+    <div class="table-responsive" id="scope_list_div">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                <a href ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                UUID
+                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                <a href ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                Name
+                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                <a href ng-click="sortType = 'description'; sortReverse = !sortReverse">
+                Description
+                <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th>
+                Show
+                </th>
+                <th>
+                Actions
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="scope in available_scopes | filter:searchText | orderBy:sortType:sortReverse">
+                <td><input type="checkbox" ng-model="selected[scope.id]"></input>
+                <td >{{ scope.id }}</a></td>
+                <td>{{ scope.name }}</a></td>
+                <td class="description-field">{{ scope.description }}</td>
+                <td>
+                    <div class="btn-group">
+                        <md-menu>
+                            <md-button class="md-raised md-primary actions_buttons" ng-click="$mdOpenMenu($event)">Select view<span class="caret"></span></md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button class="roles-dropdown-btn" href="/ipsecems/#role_rule_details/{{scope.id}}" ng-click="showData(scope.id)">
+                                        Associated Rules
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button class="roles-dropdown-btn" href="/ipsecems/#role_group_details/{{scope.id}}" ng-click="showData(scope.id)">
+                                        Associated Groups
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <md-menu>
+                            <md-button class="md-raised md-primary actions_buttons" ng-click="$mdOpenMenu($event)">Select action<span class="caret"></span></md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button ng-click="updateRole($event, scope.id)">
+                                        Update Role
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

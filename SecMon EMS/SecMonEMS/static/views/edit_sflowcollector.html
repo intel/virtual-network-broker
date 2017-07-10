@@ -1,0 +1,72 @@
+<md-dialog aria-label="Edit SFlow Collector"  ng-controller="EditSflowCollectorController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit SFlow Collector</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="editSflowCollectorForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow Collector ID</label>
+                                    <input ng-model="sflowcollector_id" value="{{available_sflowcollectors.id}}" readonly>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow Collector Name</label>
+                                    <p class="help-block">Enter SFlow Collector Name</p>
+                                    <input ng-model="sflowcollector_name" value="{{available_sflowcollectors.name}}" ng-required="true" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Collector IP</label>
+                                    <p class="help-block">Enter IP address for SFlow Collector</p>
+                                    <input ng-model="ip_address" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" value="{{available_sflowcollectors.ip_address}}" ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Collector UDP Port</label>
+                                    <p class="help-block">Enter port for SFlow Collector</p>
+                                    <input type="number" ng-model="udp_port" value="{{available_sflowcollectors.udp_port}}" min="1" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Sflow Collector</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-disabled="editSflowCollectorForm.$invalid" ng-click="add()">Update Sflow Collector</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

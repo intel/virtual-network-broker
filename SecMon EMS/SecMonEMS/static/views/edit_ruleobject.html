@@ -1,0 +1,94 @@
+<md-dialog aria-label="Edit Rule Object"  ng-controller="EditRuleObjectController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit Rule Object</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="editRuleObjectForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Rule Object ID</label>
+                                    <input ng-model="ruleobject_id" value="{{available_ruleobjects.id}}" readonly>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Rule Object Name</label>
+                                    <p class="help-block">Enter Rule Object Name</p>
+                                    <input ng-model="ruleobject_name" ng-required="true" value="{{available_ruleobjects.name}}" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Classification Object</label>
+                                    <p class="help-block">Select Classification Object</p>
+                                    <md-select ng-model="classificationobject_id" ng-model-options="{trackBy: '$value.id'}" flex-gt-sm>
+                                        <md-option ng-repeat="classificationobject in classificationobjects" ng-value="{{classificationobject}}" selected="{{ classificationobject.id === classificationobj ? 'selected' : '' }}">{{classificationobject.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Priority</label>
+                                    <p class="help-block">Enter Priority for the Rule, '1' has the highest priority</p>
+                                    <input type="number" ng-required="true" ng-model="priority" min="1" max="65535" integer value="{{available_ruleobjects.priority}}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Truncate to Size</label>
+                                    <p class="help-block">Enter value to truncate a packet to requested size(bytes), enter 0 to disable truncate to size feature</p>
+                                    <input type="number" ng-required="true" ng-model="truncate_to_size" min="0" max="1600" integer value="{{available_ruleobjects.truncate_to_size}}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Action</label>
+                                    <p class="help-block">Forward - forward
+                                        packets to SecMon Agent plugins or
+                                        select Drop -  discard packets</p>
+                                        <md-select ng-model="packet_action" ng-model-options="{trackBy: '$value.id'}" flex-gt-sm>
+                                            <md-option ng-repeat="action in actions" ng-value="{{action}}" ng-selected="$first" >{{action.value}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <md-dialog-actions layout="row">
+                                    <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Rule Object</md-button>
+                                    <span flex></span>
+                                    <md-button class='form-btns btn-submit' ng-disabled="editRuleObjectForm.$invalid" ng-click="add()">Update Rule Object</md-button>
+                                </md-dialog-actions>
+
+                            </form>
+                        </div>
+                    </md-content>
+                </md-content>
+            </div>
+
+            <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+                <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+                <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+                {{status_msg}}
+            </md-input-container>
+
+        </md-dialog-content>
+    </md-dialog>
+

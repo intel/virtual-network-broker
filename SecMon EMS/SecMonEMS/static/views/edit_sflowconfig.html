@@ -1,0 +1,89 @@
+<md-dialog aria-label="Edit SFlow Config"  ng-controller="EditSflowConfigController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit SFlow Config</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="editSflowConfigForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow Config ID</label>
+                                    <input ng-model="sflowconfig_id" value="{{available_sflowconfigs.id}}" readonly>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Scope Name</label>
+                                    <p class="help-block">Select Scope Name</p>
+                                    <input ng-model="scope_name" value="{{available_sflowconfigs.scope_id}}" ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Agent IP</label>
+                                    <p class="help-block">Enter SFlow agent IP address</p>
+                                    <input ng-model="agent_ip" pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" value="{{available_sflowconfigs.agent_ip}}" ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Agent SubID</label>
+                                    <p class="help-block">Enter SFlow agent subId</p>
+                                    <input type="number" ng-model="agent_subid" value="{{available_sflowconfigs.agent_subid}}" min="0" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Sampling Rate</label>
+                                    <p class="help-block">1-in-N packet sampling</p>
+                                    <input type="number" ng-model="sampling_rate" value="{{available_sflowconfigs.sampling_rate}}" min="1" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Truncate to Size</label>
+                                    <p class="help-block">Enter value to truncate packet to requested size(bytes), 0 not allowed</p>
+                                    <input type="number" ng-model="truncate_to_size" value="{{available_sflowconfigs.truncate_to_size}}" min="0" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                    <!-- <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Sflow Config</md-button>
+                                    <span flex></span> -->
+                                <md-button class='form-btns btn-submit' ng-disabled="editSflowConfigForm.$invalid"
+                                ng-click="add()">Update Sflow Config</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

@@ -1,0 +1,77 @@
+<md-dialog aria-label="Create RawForward CollectorSet"  ng-controller="CreateRawforwardCollectorSetController" ng-cloak class='create_rawforwardcollectorset_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Create RawForward CollectorSet</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="createRawforwardCollectorSetForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>RawForward CollectorSet Name</label>
+                                    <input
+                                    ng-model="rawforwardcollectorset_name"  ng-required="true"placeholder="Enter unique RawForward CollectorSet Name" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Algorithm</label>
+                                    <p class="help-block">Select Load Balancing Algorithm</p>
+                                    <md-select ng-model="lb_algo" flex-gt-sm>
+                                        <md-option ng-repeat="algorithm in algorithms" ng-value="{{algorithm}}" ng-selected="$first">{{algorithm.value}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>RawForward Collector Name</label>
+                                    <p class="help-block">Select RawForward Collector Name (multiple collectors can be selected)</p>
+                                    <md-select multiple="true" ng-model="collector_ids" ng-required="true" flex-gt-sm>
+                                    <md-option ng-repeat="rawforwardcollector in rawforwardcollectors" ng-value="{{rawforwardcollector}}" ng-selected="$first">
+                                    {{rawforwardcollector.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row" ng-repeat="rfcol in rawforwardcollectors">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Weight for RawForward Collector {{rfcol.name}}</label>
+                                    <input type="number" ng-model="$parent[rfcol.id]" ng-init="$parent[rfcol.id]=0" min="0" max="100" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-disabled="createRawforwardCollectorSetForm.$invalid" ng-click="submit()">Create</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

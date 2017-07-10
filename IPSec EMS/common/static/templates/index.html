@@ -1,0 +1,184 @@
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Web portal for Role Back Access Control">
+    <meta name="author" content="">
+
+    <title>EMS</title>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/font-awesome.min.css' %}">
+    <link rel='stylesheet prefetch' type="text/css" href='https://material.angularjs.org/latest/angular-material.min.css'> 
+</head>
+
+
+<body ng-app="ems">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- class="navbar-brand"><img src="../app/images/intel-logo-white-transparent-84x60.png" alt="Intel"/></div>-->
+            <a class="navbar-brand">
+                <!--<img src="../app/images/intel-logo-white-transparent-84x60.png" alt="Intel"/>-->
+                <span title={"Intel and the Intel logo are trademarks of Intel Corporation in the U.S. and/or other countries."}
+                    data-i18n="nav.title"><i class="fa fa-lock"></i>&nbsp;&nbsp;EMS</span>
+            </a>
+        </div>
+        <div ng-if="showNavbar()">
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href=""><i class="fa fa-user-secret"></i>User: <b><input class="user-name" id="get_user_name" readonly></a></b></li> 
+                    <li><a href="/ipsecems/#logout"><i class="fa fa-sign-out"></i>Signout</a></li>
+                    <li><a href=""><i class="fa fa-question-circle"></i>Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row" style='background-color: white'>
+        <div ng-if="showSidebar()">
+            <div class="col-sm-3 col-md-2 sidebar" id='navbar-main'>
+                <ul class="nav nav-sidebar">
+                    <li class="menu-div">EMS Menu</li>
+                    <li id='ikepolicies_mgmt_link' name='ems_links'><a href="/ipsecems/#ikepolicy_management" onclick="highlightMgmtLink('ikepolicies_mgmt_link');"><i class="fa fa-pencil-square-o"></i>IKE Policies</a></li>
+                    <li id='ipsecpolicies_mgmt_link' name='ems_links'><a href="/ipsecems/#ipsecpolicy_management" onclick="highlightMgmtLink('ipsecpolicies_mgmt_link');"><i class="fa fa-pencil-square"></i>IPsec Policies</a></li>
+                    <li id='vpnendpointgroups_mgmt_link' name='ems_links'><a href="/ipsecems/#vpnendpoint_group_management" onclick="highlightMgmtLink('vpnendpointgroups_mgmt_link');"><i class="fa fa-object-group"></i>VPN Endpoint Group</a></li>
+                    <li id='vpnendpointlocalsites_mgmt_link' name='ems_links'><a href="/ipsecems/#vpnendpoint_localsite_management" onclick="highlightMgmtLink('vpnendpointlocalsites_mgmt_link');"><i class="fa fa-map-marker"></i>VPN Endpoint Local Site</a></li>
+                    <li id='vpnendpointremotesites_mgmt_link' name='ems_links'><a href="/ipsecems/#vpnendpoint_remotesite_management" onclick="highlightMgmtLink('vpnendpointremotesites_mgmt_link');"><i class="fa fa-globe"></i>VPN Endpoint Remote Site</a></li>
+                    <li id='vpnbindgrouptogroup_mgmt_link' name='ems_links'><a href="/ipsecems/#vpnbind_group_to_group_management" onclick="highlightMgmtLink('vpnbindgrouptogroup_mgmt_link');"><i class="fa fa-link"></i>VPN Bind Group to Group</a></li>
+                    <li id='vpnbindlocalsitetolocalsite_mgmt_link' name='ems_links'><a href="/ipsecems/#vpnbind_localsite_to_localsite_management" onclick="highlightMgmtLink('vpnbindlocalsitetolocalsite_mgmt_link');"><i class="fa fa-compress"></i>VPN Bind Localsite to Localsite</a></li>
+                    <li id='cacert_mgmt_link' name='ems_links'><a href="/ipsecems/#cacert_management" onclick="highlightMgmtLink('cacert_mgmt_link');"><i class="fa fa-certificate"></i>CA Certificate</a></li>
+                    <li id='cert_mgmt_link' name='ems_links'><a href="/ipsecems/#cert_management" onclick="highlightMgmtLink('cert_mgmt_link');"><i class="fa fa-file-text-o"></i>Certificate</a></li>
+                    <li class="menu-div">RBAC Menu</li>
+                    <li id='users_mgmt_link' name='ems_links'><a href="/ipsecems/#user_management" onclick="highlightMgmtLink('users_mgmt_link');"><i class="fa fa-user"></i>Users</a></li>
+                    <li id='certificate_users_mgmt_link' name='ems_links'><a href="/ipsecems/#certificate_user_management" onclick="highlightMgmtLink('certificate_users_mgmt_link');"><i class="fa fa-user-plus"></i>Certificate Users</a></li>
+                    <li id='groups_mgmt_link' name='ems_links'><a href="/ipsecems/#group_management" onclick="highlightMgmtLink('groups_mgmt_link');"><i class="fa fa-users"></i>Groups</a></li>
+                    <li id='roles_mgmt_link' name='ems_links'><a href="/ipsecems/#role_management" onclick="highlightMgmtLink('roles_mgmt_link');"><i class="fa fa-key"></i>Roles</a></li>
+                    <li id='ldapconf_mgmt_link' name='ems_links'><a href="/ipsecems/#ldap_management" onclick="highlightMgmtLink('ldapconf_mgmt_link');"><i class="fa fa-wrench"></i>LDAP Configuration</a></li>
+                    <li id='autorulecreation_mgmt_link' name='ems_links'><a href="/ipsecems/#auto_rule_creation_management" onclick="highlightMgmtLink('autorulecreation_mgmt_link');"><i class="fa fa-cog"></i>Auto Rule Creation Setup</a></li>
+                </ul>
+                <div class='footer-div'>
+                    <a id='dummy_link' tabindex='-1'></a>
+                    &copy; Intel corporation 2016
+                </div>
+            </div>
+        </div>
+        <!-- <div ng-if="showSidebar()"> <div ng-include="'/static/views/sidebar.html'"></div></div> -->
+        <!--The placeholder for views. Each view referred by the route is loaded in this section.-->
+        <div ui-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <!--
+
+            -->
+        </div>
+    </div>
+</div>
+
+<div id="messageBox">
+</div>
+
+ <!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="https://material.angularjs.org/latest/angular-material.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
+<!-- EMS js files -->
+<script src="{% static 'app/js/main.js' %}"></script>
+<script src="{% static 'app/js/ScopeService.js' %}"></script>
+<script src="{% static 'app/js/LoadService.js' %}"></script>
+<script src="{% static 'app/js/LoadDetailsService.js' %}"></script>
+<script src="{% static 'app/js/CreateService.js' %}"></script>
+<script src="{% static 'app/js/UpdateService.js' %}"></script>
+<script src="{% static 'app/js/UpdateServiceEMS.js' %}"></script>
+<script src="{% static 'app/js/DeleteService.js' %}"></script>
+<script src="{% static 'app/js/AddService.js' %}"></script>
+<script src="{% static 'app/js/DialogPopUpService.js' %}"></script>
+<script src="{% static 'app/js/ConstService.js' %}"></script>
+<script src="{% static 'app/js/ResourceConstants.js' %}"></script>
+<script src="{% static 'app/js/file.js' %}"></script>
+<script src="{% static 'app/js/error.mgmt.service.js' %}"></script>
+
+<!-- RBAC Controllers -->
+<script src="{% static 'app/controllers/LoginController.js' %}"></script>
+<script src="{% static 'app/controllers/LogoutController.js' %}"></script>
+<script src="{% static 'app/controllers/UserManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/UserDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/CertUserManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/GroupManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/GroupDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/RoleManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/RoleRuleDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/RoleGroupDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/LDAPManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/AutoRuleCreationManagementController.js' %}"></script>
+
+<!-- EMS controllers -->
+<script src="{% static 'app/controllers/IKEPolicyManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/IKEPolicyDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/IPSECPolicyManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/IPSECPolicyDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNEndpointGroupManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNEndpointLocalsiteManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNEndpointLocalsiteDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNEndpointRemotesiteManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNEndpointRemotesiteDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNBindGroupToGroupManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNBindGroupToGroupDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNBindLocalsiteToLocalsiteManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/VPNBindLocalsiteToLocalsiteDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/CACertManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/CertManagementController.js' %}"></script>
+<script src="{% static 'app/controllers/CACertDetailsController.js' %}"></script>
+<script src="{% static 'app/controllers/CertDetailsController.js' %}"></script>
+
+<!-- Bootstrap core JavaScript 
+==================================================
+Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="/static/app/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<!--
+<script src="../../assets/js/vendor/holder.min.js"></script>-->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!--
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+
+<script type="text/javascript">
+function highlightMgmtLink(link_id) {
+    links = document.getElementsByName("ems_links")
+    for(iter = 0; iter < links.length; iter++) {
+        links[iter].style.background = 'none';
+    }
+    
+    window.onload = function(){
+       document.getElementById(link_id).style.background = '#ccd'; 
+    };
+
+    try {
+        document.getElementById('dummy_link').focus();
+    } catch(err) {
+        document.body.focus();
+    }
+}
+</script>
+</body>
+</html>

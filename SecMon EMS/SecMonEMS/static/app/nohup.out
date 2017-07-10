@@ -1,0 +1,39 @@
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+==> WARNING: Bootstrap mode enabled! Do not enable unless necessary
+==> Starting Consul agent...
+==> Starting Consul agent RPC...
+==> Consul agent running!
+           Version: 'v0.7.0'
+         Node name: 'rajat-Notebook-PC'
+        Datacenter: 'dc1'
+            Server: true (bootstrap: true)
+       Client Addr: 127.0.0.1 (HTTP: 8500, HTTPS: -1, DNS: 8600, RPC: 8400)
+      Cluster Addr: 127.0.0.1 (LAN: 8301, WAN: 8302)
+    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+             Atlas: <disabled>
+
+==> Log data will now stream in as it occurs:
+
+    2016/10/03 11:30:40 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:127.0.0.1:8300 Address:127.0.0.1:8300}]
+    2016/10/03 11:30:40 [INFO] raft: Node at 127.0.0.1:8300 [Follower] entering Follower state (Leader: "")
+    2016/10/03 11:30:41 [INFO] serf: EventMemberJoin: rajat-Notebook-PC 127.0.0.1
+    2016/10/03 11:30:41 [WARN] serf: Failed to re-join any previously known node
+    2016/10/03 11:30:41 [INFO] consul: Adding LAN server rajat-Notebook-PC (Addr: tcp/127.0.0.1:8300) (DC: dc1)
+    2016/10/03 11:30:41 [INFO] serf: EventMemberJoin: rajat-Notebook-PC.dc1 127.0.0.1
+    2016/10/03 11:30:41 [WARN] serf: Failed to re-join any previously known node
+    2016/10/03 11:30:41 [INFO] consul: Adding WAN server rajat-Notebook-PC.dc1 (Addr: tcp/127.0.0.1:8300) (DC: dc1)
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+    2016/10/03 11:30:48 [ERR] agent: failed to sync remote state: No cluster leader
+    2016/10/03 11:30:49 [WARN] raft: Heartbeat timeout from "" reached, starting election
+    2016/10/03 11:30:49 [INFO] raft: Node at 127.0.0.1:8300 [Candidate] entering Candidate state in term 7
+    2016/10/03 11:30:49 [INFO] raft: Election won. Tally: 1
+    2016/10/03 11:30:49 [INFO] raft: Node at 127.0.0.1:8300 [Leader] entering Leader state
+    2016/10/03 11:30:49 [INFO] consul: cluster leadership acquired
+    2016/10/03 11:30:49 [INFO] consul: New leader elected: rajat-Notebook-PC
+    2016/10/03 11:30:51 [INFO] agent: Synced node info
+==> Caught signal: hangup
+==> Reloading configuration...
+==> WARNING: Bootstrap mode enabled! Do not enable unless necessary

@@ -1,0 +1,140 @@
+<md-dialog aria-label="Create VPN Bind Group to Group"  ng-controller="CreateVPNBindGroupToGroupController" ng-cloak class='create_scope_modal md-inline-form'>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create VPN Bind Group to Group</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    X
+                </md-button>
+            </div>
+            <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+                <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                    <md-content layout-padding>
+
+                        <div>
+                            <form name="createVPNBindGroupToGroupForm">
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Name</label>
+                                        <input ng-model="scope_name">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>VPN Endpoint Group</label>
+                                        <md-select ng-model="vpnendpointgroup_id" flex-gt-sm>
+                                            <md-option ng-repeat="vpnendpointgroup in available_vpnendpointgroup_scopes" ng-value="vpnendpointgroup.id">{{vpnendpointgroup.id}} -- {{vpnendpointgroup.name}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Peer VPN Endpoint Group</label>
+                                        <md-select ng-model="peer_vpnendpointgroup_id" flex-gt-sm>
+                                            <md-option ng-repeat="peer_vpnendpointgroup in available_vpnendpointgroup_scopes" ng-value="peer_vpnendpointgroup.id">{{peer_vpnendpointgroup.id}} -- {{peer_vpnendpointgroup.name}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Dead Peer Detection(DPD) Action</label>
+                                        <md-select ng-model="dpd_action" flex-gt-sm>
+                                            <md-option ng-repeat="dpd_action in dpd_action_options" ng-value="dpd_action">{{dpd_action}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Dead Peer Detection(DPD) Interval</label>
+                                        <input ng-model="dpd_interval">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Dead Peer Detection(DPD) Timeout</label>
+                                        <input ng-model="dpd_timeout">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Auth-mode</label>
+                                        <md-select ng-model="auth_mode" flex-gt-sm>
+                                            <md-option ng-repeat="auth_mode in auth_mode_options" ng-value="auth_mode">{{auth_mode}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Pre-Shared Key</label>
+                                        <input ng-model="psk">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Initiator</label>
+                                        <md-select ng-model="initiator" flex-gt-sm>
+                                            <md-option ng-repeat="initiator in initiator_options" ng-value="initiator">{{initiator}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>IKE Policy</label>
+                                        <md-select ng-model="ikepolicy_id" flex-gt-sm>
+                                            <md-option ng-repeat="ikepolicy in available_ikepolicy_scopes" ng-value="ikepolicy.id">{{ikepolicy.id}} -- {{ikepolicy.name}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>IPsec Policy</label>
+                                        <md-select ng-model="ipsecpolicy_id" flex-gt-sm>
+                                            <md-option ng-repeat="ipsecpolicy in available_ipsecpolicy_scopes" ng-value="ipsecpolicy.id">{{ipsecpolicy.id}} -- {{ipsecpolicy.name}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Description</label>
+                                        <input ng-model="description">
+                                    </md-input-container>
+                                </div>
+
+                                <md-dialog-actions layout="row">
+                                    <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                    <span flex></span>
+                                    <md-button class='form-btns btn-submit' ng-click="submit()">Create</md-button>
+                                </md-dialog-actions>
+
+                            </form>
+                        </div>
+                    </md-content>
+                </md-content>
+            </div>
+
+            <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+                <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+                <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+                {{status_msg}}<br>
+                <div ng-repeat="(field, description) in error_messages">{{field}}: <span ng-repeat="msg in description">{{msg}}{{ $last ? '' :', ' }}<span><br/><div>
+            </md-input-container>
+
+        </md-dialog-content>
+</md-dialog>
+

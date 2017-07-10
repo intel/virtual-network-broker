@@ -1,0 +1,3 @@
+SecMon Agent
+------------
+This is a dpdk application, it receives packets from dpdk interface and sends them to loaded plugins for further processing.

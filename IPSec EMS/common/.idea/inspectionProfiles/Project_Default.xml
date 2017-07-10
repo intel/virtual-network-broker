@@ -1,0 +1,34 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="vpnclient.v1_0.vpn.ikepolicy._" />
+          <option value="vpnclient.v1_0.vpn.vpnendpointremotesite._" />
+          <option value="vpnclient.shell._" />
+          <option value="vpnclient.utils._" />
+          <option value="vpnclient.v1_0.vpn.utils_vpn._" />
+          <option value="vpnclient.v1_0.vpn.vpnendpointlocalsite._" />
+          <option value="vpnclient.v1_0.vpn.vpnendpointgroup._" />
+          <option value="vpnclient.v1_0.vpn.ipsecpolicy._" />
+          <option value="vpnclient.v1_0.vpn.vpnbindlocalsitetoremotesite._" />
+          <option value="vpnclient.v1_0.vpn.vpncacertificate._" />
+          <option value="vpnclient.v1_0.vpn.vpncertificate._" />
+          <option value="vpnclient.v1_0.vpn.command_list._" />
+          <option value="vpnclient.v1_0.vpn.vpnbindgrouptogroup._" />
+          <option value="vpnclient.v1_0.vpn.vpnbindlocalsitetolocalsite._" />
+          <option value="vpnclient.v1_0.rbac.rbac_project._" />
+          <option value="vpnclient.v1_0.rbac.rbac_role._" />
+          <option value="vpnclient.v1_0.rbac.rbac_user._" />
+          <option value="vpnclient.v1_0.rbac.rbac_group._" />
+          <option value="vpnclient.v1_0.rbac.utils_rbac._" />
+          <option value="vpnclient.v1_0.command_list._" />
+          <option value="vpnclient.v1_0.rbac.rbac_certificate_user._" />
+          <option value="vpnclient.v1_0.rbac.rbac_token._" />
+          <option value="object.finalize_response" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

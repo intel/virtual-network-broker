@@ -1,0 +1,98 @@
+#!/bin/bash
+# chkconfig: 2345 20 80
+# description: Description comes here....
+
+# Source function library.
+#. /etc/init.d/functions
+
+start() {
+    # code to start app comes here 
+    # example: daemon program_name &
+    nohup consul agent -server -bootstrap-expect 1 -data-dir /etc/consul_data -node=agent-one -config-dir /etc/consul.d & 
+    cd /etc/ipsecems_rbac/rbac/
+    nohup python manage.py runserver localhost:8051 &
+    sleep 2
+    cd /etc/ipsecems/
+    nohup python manage.py runserver 0.0.0.0:8000 &
+    nohup python manage.py healthcheck &
+    nohup python manage.py ipsecenforcernotify &
+    nohup python manage.py rbacregister &
+    sleep 2
+}
+
+stop() {
+    # code to stop app comes here 
+    # example: killproc program_name
+    ps ax | grep consul | cut -c-5 | xargs kill -9    
+    ps ax | grep runserver | cut -c-5 | xargs kill -9
+    ps ax | grep healthcheck | cut -c-5 | xargs kill -9
+    ps ax | grep ipsecenforcernotify | cut -c-5 | xargs kill -9
+}
+
+status(){
+    # Code to check status of EMS services
+    runserver_pids=`ps -ax | grep runserver | cut -c-5`
+    runserver_count=0
+    for runserver_pid in $runserver_pids
+    do
+    runserver_count=` expr $runserver_count + 1 `
+    done
+    if [ $runserver_count -gt 1 ]
+    then
+    echo "EMS server is running"
+    else
+    echo "EMS server is not running"
+    fi
+
+    consul_pids=`ps -ax | grep consul | cut -c-5`
+    consul_count=0
+    for consul_pid in $consul_pids
+    do
+    consul_count=` expr $consul_count + 1 `
+    done
+    if [ $consul_count -gt 1 ]
+    then
+    echo "Consul is running"
+    else
+    echo "Consul is not running"
+    fi
+
+    #emsnotify_pids=`ps -ax | grep ipsecenforcernotify |  cut -c-5`
+    #emsnotif_count=0
+    #for emsnotify_pid in $emsnotify_pids
+    #do
+    #emsnotify_count=` expr $emsnotify_count + 1 `
+    #done
+    #if [ $emsnotify_count -gt 1 ]
+    #then
+    #echo "EMS Notification Handler is running"
+    #else
+    #echo "EMS Notification Handler is not running"
+    #fi
+}
+case "$1" in 
+    start)
+       start
+       status
+       ;;
+    stop)
+       stop
+       status
+       ;;
+    restart)
+       stop
+       status
+       start
+       status
+       ;;
+    status)
+       # code to check status of app comes here 
+       # example: status program_name
+       status
+       ;;
+    *)
+       echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
+

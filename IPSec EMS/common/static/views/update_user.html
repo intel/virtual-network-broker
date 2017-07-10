@@ -1,0 +1,81 @@
+<md-dialog aria-label="Update User"  ng-controller="UpdateUserController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Update User</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="updateUserForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Name: {{scope_name}}</label>
+                                    <input ng-model="scope_name">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Email: {{email}}</label>
+                                    <input ng-model="email">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>LDAP Authentication: {{auth_by_ldap}}</label>
+                                    <md-select ng-model="auth_by_ldap" flex-gt-sm>
+                                        <md-option ng-repeat="auth_by_ldap in auth_by_ldap_options" ng-selected="$last" ng-value="auth_by_ldap">{{auth_by_ldap}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>LDAP Configuration ID: {{ldap_config_id}}</label>
+                                    <md-select ng-model="ldap_config_id" flex-gt-sm>
+                                        <md-option ng-repeat="ldap_config in available_scopes" ng-value="ldap_config.id">{{ldap_config.ldap_uri}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Description: {{description}}</label>
+                                    <input ng-model="description">
+                                </md-input-container>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-click="submit()">Update</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}<br>
+            <div ng-repeat="(field, description) in error_messages">{{field}}: <span ng-repeat="msg in description">{{msg}}{{ $last ? '' :', ' }}<span><br/><div>
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

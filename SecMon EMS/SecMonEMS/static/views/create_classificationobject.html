@@ -1,0 +1,119 @@
+<md-dialog aria-label="Create Classification Object" ng-controller="CreateClassificationObjectController" ng-cloak class='create_classificationobject_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Create Classification Object</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+                    <div>
+                        <form name="createClassificationObjectForm">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Classification Object Name</label>
+                                    <input ng-model="classificationobject_name" ng-required="true" placeholder="Enter Classification Object Name" ng-minlength="3" ng-maxlength="10" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Source IP Address</label>
+                                    <p class="help-block">Source IP address of the traffic reaching SecMon, Enter 0.0.0.0 to allow all IP Addresses</p>
+                                    <input ng-model="src_ip" ng-required="true" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Source MAC</label>
+                                    <p class="help-block">Enter source MAC, eg. . *(default) as source MAC allows all MAC addresses</p>
+                                    <input ng-model="src_mac" vaue="*" pattern="^((([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F]))|[*])$" ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Source Subnet</label>
+                                    <p class="help-block">Enter subnet value from 0 to 32</p>
+                                    <input type="number" ng-model="src_ip_subnet" ng-required="true" min="0" max="32" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Minimum Source Port</label>
+                                    <p class="help-block">Enter minimum source port value</p>
+                                    <input type="number" ng-model="minimum_src_port" min="1" ng-required="true" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Maximum Source Port</label>
+                                    <p class="help-block">Enter maximum source port value</p>
+                                    <input type="number" ng-model="maximum_src_port" ng-required="true" min="1" max="65535" integer> </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Destination IP Address</label>
+                                    <p class="help-block">Destination IP address of the traffic reaching SecMon, Enter 0.0.0.0 to allow all IP Addresses</p>
+                                    <input ng-model="dst_ip" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Destination Mac</label>
+                                    <p class="help-block">Enter destination MAC, eg. . *(default) as destination MAC allows all MAC addresses</p>
+                                    <input ng-model="dst_mac" pattern="^((([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F]))|[*])$" ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Destination Subnet</label>
+                                    <p class="help-block">Enter subnet value from 0 to 32</p>
+                                    <input type="number" ng-model="dst_ip_subnet" min="0" max="32" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Minimum Destination Port</label>
+                                    <p class="help-block">Enter minimum destination port value</p>
+                                    <input type="number" ng-model="minimum_dst_port" min="1" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Maximum Destination Port</label>
+                                    <p class="help-block">Enter maximum destination port value</p>
+                                    <input type="number" ng-model="maximum_dst_port" min="1" max="65535" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Protocol</label>
+                                    <p class="help-block">Select protocol</p>
+                                    <md-select ng-model="protocol_id" flex-gt-sm>
+                                        <md-option ng-repeat="protocol in protocols" ng-value="{{protocol}}" ng-selected="$first">{{protocol.value}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-disabled="createClassificationObjectForm.$invalid" ng-click="submit()">Create</md-button>
+                            </md-dialog-actions>
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+        <md-input-container class="md-block status_msg_block" ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i>
+            <br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i>
+            <br /> {{status_msg}}
+        </md-input-container>
+    </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,10 @@
+It contains various configuration files that are read at initialization
+time of secmon agent and secmon plugins.
+
+1. Files ending with server.ini are for secmon plugin server. It has VM's own IP
+   and port on which server is listening for EMS agent to communicate for changes 
+   in configuration. Plugins uses this to register itself with EMS.
+2. SecMonAgent_Config.ini is for secmon plugin and has configurations related to dpdk.
+3. EMS_config.ini is for secmon plugin clients and it contains EMS REST server IP 
+   and port along with secmon scope name, to receive configurations.
+   

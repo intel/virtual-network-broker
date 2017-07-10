@@ -1,0 +1,83 @@
+<md-dialog aria-label="Edit NetFlow Config" ng-controller="EditNetflowConfigController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit NetFlow Config</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+                    <div>
+                        <form name="editNetflowConfigForm">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>NetFlow Config ID</label>
+                                    <input ng-model="netflowconfig_id" value="{{available_netflowconfigs.id}}" readonly>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Scope Name</label>
+                                    <p class="help-block">Select required Scope Name</p>
+                                    <input ng-model="scope_name" ng-required="true" value="{{available_netflowconfigs.scope_id}}">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Active Timeout</label>
+                                    <p class="help-block">Timeout value (in seconds) for active flow entries to be exported</p>
+                                    <input type="number" ng-model="active_timeout" ng-required="true" value="{{available_netflowconfigs.active_timeout}}" min="1" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Inactive Timeout</label>
+                                    <p class="help-block">Timeout value (in seconds) for inactive flow entries to be exported</p>
+                                    <input type="number" ng-model="inactive_timeout" ng-required="true" value="{{available_netflowconfigs.inactive_timeout}}" min="1" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Refresh Rate</label>
+                                        <p class="help-block">Netflow v9 template refresh rate (i.e. no of packets), after which template need to be exported</p>
+                                    <input type="number" ng-model="refresh_rate" ng-required="true" value="{{available_netflowconfigs.refresh_rate}}" min="1" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Timeout Rate</label>
+                                    <p class="help-block">NetFlow template timeout rate (i.e. in minutes) after which template need to be exported</p>
+                                    <input type="number" ng-model="timeout_rate" ng-required="true" value="{{available_netflowconfigs.timeout_rate}}" min="1" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>MaxFlows</label>
+                                    <p class="help-block">Maximum number of flows that can be created</p>
+                                    <input type="number" ng-model="maxflows" ng-required="true" value="{{available_netflowconfigs.maxflows}}" min="1" max="65535" integer>
+                                </md-input-container>
+                            </div>
+                            <md-dialog-actions layout="row">
+                                    <!-- <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Netflow Config</md-button>
+                                    <span flex></span> -->
+                                <md-button class='form-btns btn-submit' ng-disabled="editNetflowConfigForm.$invalid" ng-click="add()">Update Netflow Config</md-button>
+                            </md-dialog-actions>
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+        <md-input-container class="md-block status_msg_block" ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i>
+            <br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i>
+            <br /> {{status_msg}}
+        </md-input-container>
+    </md-dialog-content>
+</md-dialog>

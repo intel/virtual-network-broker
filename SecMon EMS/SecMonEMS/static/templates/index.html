@@ -1,0 +1,136 @@
+{% load staticfiles %} {% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Web portal for distributed HSM management">
+    <meta name="author" content="ascrawfo">
+    <title>MaaS</title>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/font-awesome.min.css' %}">
+    <link rel='stylesheet prefetch' type="text/css" href="{% static 'app/css/angular-material.min.css' %}">
+</head>
+
+<body ng-app="secmon">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- class="navbar-brand"><img src="../app/images/intel-logo-white-transparent-84x60.png" alt="Intel"/></div>-->
+                <a class="navbar-brand">
+                    <!--<img src="../app/images/intel-logo-white-transparent-84x60.png" alt="Intel"/>-->
+                    <span title="Intel and the Intel logo are trademarks of Intel Corporation in the U.S. and/or other countries." data-i18n="nav.title"><i class="fa fa-lock"></i>&nbsp;&nbsp;MaaS</span>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><i class="fa fa-user-secret"></i>User</a></li>
+                    <li><a href="#"><i class="fa fa-sign-out"></i>Signout</a></li>
+                    <li><a href="#"><i class="fa fa-question-circle"></i>Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row" style='background-color: white'>
+            <div class="col-sm-3 col-md-2 sidebar" id='navbar-main'>
+                <ul class="nav nav-sidebar">
+                    <li id='overview_mgmt_link' name='maas_links'><a href="/maas/#overview_management" onclick="highlightMgmtLink('overview_mgmt_link');"><i class="fa fa-book"></i>Overview</a></li>
+                    <li id='netflow_mgmt_link' name='maas_links'><a href="/maas/#netflow_management" onclick="highlightMgmtLink('netflow_mgmt_link');"><i class="fa
+              fa-book"></i>NetFlow</a></li>
+                    <li id='rawforward_mgmt_link' name='maas_links'><a href="/maas/#rawforward_management" onclick="highlightMgmtLink('rawforward_mgmt_link');"><i
+              class="fa fa-book"></i>RawForward</a></li>
+			        <!-- Uncomment it if need SFlow component in GUI -->
+					<!-- <li id='sflow_mgmt_link' name='maas_links'><a href="/maas/#sflow_management" onclick="highlightMgmtLink('sflow_mgmt_link');"><i class="fa
+              fa-book"></i>SFlow</a></li> -->
+
+                </ul>
+                <div class='footer-div'>
+                    <a id='dummy_link' tabindex='-1'></a>
+                    &copy; Intel corporation 2016
+                </div>
+            </div>
+            <!--The placeholder for views. Each view referred by the route is loaded in this section.-->
+            <div ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <!--
+
+            -->
+            </div>
+        </div>
+    </div>
+    <div id="messageBox">
+    </div>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="{% static 'app/js/angular.js' %}"></script>
+    <script src="{% static 'app/js/angular-animate.min.js' %}"></script>
+    <script src="{% static 'app/js/angular-route.min.js' %}"></script>
+    <script src="{% static 'app/js/angular-aria.min.js' %}"></script>
+    <script src="{% static 'app/js/angular-material.min.js' %}"></script>
+    <!-- SECMON js files -->
+    <script src="{% static 'app/js/main.js' %}"></script>
+    <script src="{% static 'app/js/ScopeService.js' %}"></script>
+    <script src="{% static 'app/js/error.mgmt.service.js' %}"></script>
+    <!-- SECMON Controllers -->
+    <script src="{% static 'app/controllers/OverviewManagementController.js' %}"></script>
+    <script src="{% static 'app/controllers/NetflowManagementController.js' %}"></script>
+    <script src="{% static 'app/controllers/RawforwardManagementController.js' %}"></script>
+    <script src="{% static 'app/controllers/SflowManagementController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditClassificationObjectController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditNetflowAssociationController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditNetflowCollectorController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditNetflowConfig.js' %}"></script>
+    <script src="{% static 'app/controllers/EditNetflowMonitorController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditPolicyController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditRawforwardAssociationController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditRawforwardCollectorController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditRuleObjectController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditScopeController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditSflowAssociationController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditSflowCollectorController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditSflowConfig.js' %}"></script>
+    <script src="{% static 'app/controllers/EditNetflowCollectorSetController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditSflowCollectorSetController.js' %}"></script>
+    <script src="{% static 'app/controllers/EditRawforwardCollectorSetController.js' %}"></script>
+    <!-- Bootstrap core JavaScript
+==================================================
+Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'app/js/jquery.min.js' %}"></script>
+    <script>
+    window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    </script>
+    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <!--
+<script src="../../assets/js/vendor/holder.min.js"></script>-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--
+<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+    <script type="text/javascript">
+    function highlightMgmtLink(link_id) {
+        links = document.getElementsByName("rbac_links")
+        for (iter = 0; iter < links.length; iter++) {
+            links[iter].style.background = 'none';
+        }
+
+        document.getElementById(link_id).style.background = '#ccd';
+
+        try {
+            document.getElementById('dummy_link').focus();
+        } catch (err) {
+            document.body.focus();
+        }
+    }
+    </script>
+</body>
+
+</html>

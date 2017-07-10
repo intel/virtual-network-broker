@@ -1,0 +1,23 @@
+<md-dialog aria-label="Status Message"  ng-controller="StatusManagementController" ng-cloak class='create_scope_modal md-inline-form'>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Status Message</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    X
+                </md-button>
+            </div>
+            <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+        </md-toolbar>
+
+        <md-dialog-content>
+
+            <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+                <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+                <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+                {{status_msg}}<br>
+                <div ng-repeat="(field, description) in error_messages">{{field}}: <span ng-repeat="msg in description">{{msg}}{{ $last ? '' :', ' }}<span><br/><div>
+            </md-input-container>
+
+        </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,58 @@
+<div class="main" ng-controller="IPSECPolicyDetailsController">
+</div>
+
+<h1 class="page-header">IPSEC Policy: {{detailed_scope.name}}</h1>
+
+<div class="table-reponsive" id="scope_list_details">
+  <table class="table table-striped" >
+    <tr>
+      <th>UUID</th>
+      <td>{{ detailed_scope.id }}</td>
+    </tr>
+
+    <tr>
+      <th>Name</th>
+      <td>{{ detailed_scope.name }}</td>
+    </tr>
+
+    <tr>
+      <th>Transform Protocol</th>
+      <td>{{ detailed_scope.transform_protocol }}</td>
+    </tr>
+
+    <tr>
+      <th>Encryption Algorithm</th>
+      <td><span ng-repeat="encryption_algorithm in detailed_scope.encryption_algorithm">{{ encryption_algorithm }}{{ $last ? '' :', ' }}</span></td>
+    </tr>
+
+    <tr>
+      <th>Integrity Algorithm</th>
+      <td><span ng-repeat="integrity_algorithm in detailed_scope.integrity_algorithm">{{ integrity_algorithm }}{{ $last ? '' :', ' }}</span></td>
+    </tr>
+
+    <tr>
+      <th>Diffie-Hellman Group</th>
+      <td><span ng-repeat="dh_group in detailed_scope.dh_group">{{ dh_group }}{{ $last ? '' :', ' }}</span></td>
+    </tr>
+
+    <tr>
+      <th>Extended Sequence Number(ESN) Mode</th>
+      <td>{{ detailed_scope.esn_mode }}</td>
+    </tr>
+
+    <tr>
+      <th>Encapsulation Mode</th>
+      <td>{{ detailed_scope.encapsulation_mode }}</td>
+    </tr>
+
+    <tr>
+      <th>Lifetime Value</th>
+      <td>{{ detailed_scope.lifetime_value }}</td>
+    </tr>
+
+    <tr>
+      <th>Lifetime Units</th>
+      <td>{{ detailed_scope.lifetime_units }}</td>
+    </tr>
+  </table>
+</div>

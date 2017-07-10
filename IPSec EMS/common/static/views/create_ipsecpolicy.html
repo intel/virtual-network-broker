@@ -1,0 +1,135 @@
+<md-dialog aria-label="Create IPSEC Policy"  ng-controller="CreateIPSECPolicyController" ng-cloak class='create_scope_modal md-inline-form'>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create IPSEC Policy</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    X
+                </md-button>
+            </div>
+            <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+                <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                    <md-content layout-padding>
+
+                        <div>
+                            <form name="createIPSECPolicyForm">
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Name</label>
+                                        <input ng-model="scope_name">
+                                    </md-input-container>
+                                </div>
+                                
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Transform Protocol</label>
+                                        <md-select ng-model="transform_protocol" flex-gt-sm ng-change="updateObjects(transform_protocol)">
+                                            <md-option ng-repeat="transform_protocol in transform_protocol_options" ng-value="transform_protocol">{{transform_protocol}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>IKE Version</label>
+                                        <md-select ng-model="ike_version" flex-gt-sm ng-change="updateObjects(ike_version)">
+                                            <md-option ng-repeat="version in ike_version_options" ng-value="version">{{version}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Encryption Algorithm</label>
+                                        <md-select ng-model="encryption_algorithm" multiple flex-gt-sm>
+                                            <md-option ng-repeat="encryption_algo in encryption_algorithm_options" ng-value="encryption_algo">{{encryption_algo}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Integrity Algorithm</label>
+                                        <md-select ng-model="integrity_algorithm" multiple flex-gt-sm>
+                                            <md-option ng-repeat="integrity_algo in integrity_algorithm_options" ng-value="integrity_algo">{{integrity_algo}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Diffie-Hellman Group</label>
+                                        <md-select ng-model="dh_group" multiple flex-gt-sm>
+                                            <md-option ng-repeat="dh_grp in dh_group_options" ng-value="dh_grp">{{dh_grp}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Extended Sequence Number(ESN) Mode</label>
+                                        <md-select ng-model="esn_mode" flex-gt-sm>
+                                            <md-option ng-repeat="esn_mode in esn_mode_options" ng-value="esn_mode">{{esn_mode}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Encapsulation Mode</label>
+                                        <md-select ng-model="encapsulation_mode" flex-gt-sm>
+                                            <md-option ng-repeat="encapsulation_mode in encapsulation_mode_options" ng-value="encapsulation_mode">{{encapsulation_mode}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Lifetime Value</label>
+                                        <input ng-model="lifetime_value">
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Lifetime Units</label>
+                                        <md-select ng-model="lifetime_units" flex-gt-sm>
+                                            <md-option ng-repeat="lifetime_units in lifetime_units_options" ng-value="lifetime_units">{{lifetime_units}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Description</label>
+                                        <input ng-model="description">
+                                    </md-input-container>
+                                </div>
+
+                                <md-dialog-actions layout="row">
+                                    <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                                    <span flex></span>
+                                    <md-button class='form-btns btn-submit' ng-click="submit()">Create</md-button>
+                                </md-dialog-actions>
+
+                            </form>
+                        </div>
+                    </md-content>
+                </md-content>
+            </div>
+
+            <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+                <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+                <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+                {{status_msg}}<br>
+                <div ng-repeat="(field, description) in error_messages">{{field}}: <span ng-repeat="msg in description">{{msg}}{{ $last ? '' :', ' }}<span><br/><div>
+            </md-input-container>
+
+        </md-dialog-content>
+</md-dialog>
+

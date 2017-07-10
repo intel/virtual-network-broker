@@ -1,0 +1,139 @@
+<md-dialog aria-label="Reorder Rule"  ng-controller="ReorderRuleController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Reorder Rule</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="reoderRuleForm">
+
+                            <!-- <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Select order position</label>
+                                    <md-select ng-model="">
+                                        <md-menu-bar>
+                                            <md-menu>
+                                                <md-menu-content>
+                                                    <md-menu-item>
+                                                        <md-button ng-click="reorder('top', -1)">
+                                                        At Top
+                                                        </md-button>
+                                                    </md-menu-item>
+                                                    <md-menu-divider></md-menu-divider>
+                                                <md-menu-item>
+                                                    <md-menu>
+                                                        <md-button ng-click="$mdOpenMenu()">Before</md-button>
+                                                        <md-menu-content>
+                                                            <md-menu-item ng-repeat="rule in available_rule_scopes">
+                                                                <md-button ng-click="reorder('before', rule.order)">
+                                                                {{rule.resource_endpoint}}
+                                                                </md-button>
+                                                            </md-menu-item>
+                                                        </md-menu-content>
+                                                    </md-menu>
+                                                </md-menu-item>
+                                                <md-menu-divider></md-menu-divider>
+                                                <md-menu-item>
+                                                    <md-menu>
+                                                        <md-button ng-click="$mdOpenMenu()">After</md-button>
+                                                        <md-menu-content>
+                                                            <md-menu-item ng-repeat="rule in available_rule_scopes">
+                                                                <md-button ng-click="reorder('after', rule.order)">
+                                                                {{rule.resource_endpoint}}
+                                                                </md-button>
+                                                            </md-menu-item>
+                                                        </md-menu-content>
+                                                    </md-menu>
+                                                </md-menu-item>
+                                                <md-menu-divider></md-menu-divider>
+                                                <md-menu-item>
+                                                    <md-button ng-click="reorder('last', -1)">
+                                                    At Bottom
+                                                    </md-button>
+                                                </md-menu-item>
+                                            </md-menu>
+                                        </md-menu-bar>
+                                    </md-select>
+                                </md-input-container>
+                            </div> -->
+
+                            <div layout-gt-sm="row">
+                                <md-menu-bar>
+                                    <md-menu>
+                                        <md-button class="reorder-btn md-raised md-primary actions_buttons" ng-click="$mdOpenMenu()">
+                                        Select order position
+                                        <i class="fa fa-sort-desc"></i>
+                                        </md-button>
+                                        <md-menu-content>
+                                            <md-menu-item>
+                                                <md-button ng-click="reorder('top', -1)">
+                                                At Top
+                                                </md-button>
+                                            </md-menu-item>
+                                            <md-menu-divider></md-menu-divider>
+                                        <md-menu-item>
+                                            <md-menu>
+                                                <md-button ng-click="$mdOpenMenu()">Before</md-button>
+                                                <md-menu-content>
+                                                    <md-menu-item ng-repeat="rule in available_rule_scopes">
+                                                        <md-button ng-click="reorder('before', rule.order)">
+                                                        {{rule.resource_endpoint}}
+                                                        </md-button>
+                                                    </md-menu-item>
+                                                </md-menu-content>
+                                            </md-menu>
+                                        </md-menu-item>
+                                        <md-menu-divider></md-menu-divider>
+                                        <md-menu-item>
+                                            <md-menu>
+                                                <md-button ng-click="$mdOpenMenu()">After</md-button>
+                                                <md-menu-content>
+                                                    <md-menu-item ng-repeat="rule in available_rule_scopes">
+                                                        <md-button ng-click="reorder('after', rule.order)">
+                                                        {{rule.resource_endpoint}}
+                                                        </md-button>
+                                                    </md-menu-item>
+                                                </md-menu-content>
+                                            </md-menu>
+                                        </md-menu-item>
+                                        <md-menu-divider></md-menu-divider>
+                                        <md-menu-item>
+                                            <md-button ng-click="reorder('last', -1)">
+                                            At Bottom
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu>
+                                </md-menu-bar>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="cancel()">Cancel</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}<br>
+            <div ng-repeat="(field, description) in error_messages">{{field}}: {{description}}<br/><div>
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

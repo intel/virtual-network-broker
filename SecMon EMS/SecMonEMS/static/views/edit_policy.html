@@ -1,0 +1,66 @@
+<md-dialog aria-label="Edit Policy"  ng-controller="EditPolicyController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit Policy</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+
+                    <div>
+                        <form name="editPolicyForm">
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Policy ID</label>
+                                    <input ng-model="policy_id" value="{{available_policys.id}}" readonly>
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Policy Name</label>
+                                    <p class="help-block">Enter Policy Name</p>
+                                    <input ng-model="policy_name" ng-required="true" value="{{available_policys.name}}" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Rule Object</label>
+                                    <p class="help-block">Select Rule Object (multiple can be selected).</p>
+                                    <md-select multiple="true" ng-required="true" ng-model="ruleobject_id" flex-gt-sm ng-model-options="{trackBy: '$value.id'}">
+                                        <md-option ng-repeat="ruleobject in ruleobjects" selected="{{ruleobject.id === ruleobject ? 'selected': ''}}" ng-value="{{ruleobject}}">{{ruleobject.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Policy</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-disabled="editPolicyForm.$invalid" ng-click="add()">Update Policy</md-button>
+                            </md-dialog-actions>
+
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+
+        <md-input-container class="md-block status_msg_block"  ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i><br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i><br />
+            {{status_msg}}
+        </md-input-container>
+
+    </md-dialog-content>
+</md-dialog>
+

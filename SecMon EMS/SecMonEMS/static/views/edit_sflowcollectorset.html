@@ -1,0 +1,73 @@
+<md-dialog aria-label="Edit SFlow CollectorSet" ng-controller="EditSflowCollectorSetController" ng-cloak class='create_scope_modal md-inline-form'>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit SFlow CollectorSet</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+        <md-progress-linear md-mode="indeterminate" class='md-warn md-hue-3' ng-show="show_prog_bar"></md-progress-linear>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="column" ng-cloak class="md-inline-form" ng-show='show_form_elements'>
+            <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+                <md-content layout-padding>
+                    <div>
+                        <form name="editSflowCollectorSetForm">
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow CollectorSet ID</label>
+                                    <input ng-model="sflowcollectorset_id" value="{{available_sflowcollectorsets.id}}" readonly>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow CollectorSet Name</label>
+                                    <input ng-model="sflowcollectorset_name" value="{{available_sflowcollectorsets.id}}" ng-required="true" pattern="[a-zA-Z0-9-_|]{6,20}">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Algorithm</label>
+                                    <p class="help-block">Select Load Balancing Algorithm</p>
+                                    <md-select ng-model="lb_algo" flex-gt-sm>
+                                        <md-option ng-repeat="algorithm in algorithms" ng-value="{{algorithm}}" ng-selected="$first">{{algorithm.value}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>SFlow Collector Name</label>
+                                    <p class="help-block">Select SFlow Collector Name (multiple collectors can be selected)</p>
+                                    <md-select multiple="true" ng-model="collector_ids" flex-gt-sm>
+                                        <md-option ng-repeat="sflowcollector in sflowcollectors" ng-value="{{sflowcollector}}" ng-selected="$first">{{sflowcollector.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row" ng-repeat="scol in
+                                  sflowcollectors" ng-show="lb_algo.id == 2">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Weight for SFlow Collector {{scol.name}}
+                                    </label>
+                                    <input type="number" ng-model="$parent[rcol.id]" ng-value="scol.weight || 0" min="0" max="100" integer ng-required="true">
+                                </md-input-container>
+                            </div>
+                            <md-dialog-actions layout="row">
+                                <md-button class='form-btns btn-cancel' ng-click="remove()">Remove Sflow CollectorSet</md-button>
+                                <span flex></span>
+                                <md-button class='form-btns btn-submit' ng-disabled="editSflowCollectorSetForm.$invalid" ng-click="add()">Update Sflow CollectorSet</md-button>
+                            </md-dialog-actions>
+                        </form>
+                    </div>
+                </md-content>
+            </md-content>
+        </div>
+        <md-input-container class="md-block status_msg_block" ng-show='show_status_msgs'>
+            <i class="fa fa-times-circle fa-4x status_icons err_icon" ng-show="show_err_icon"></i>
+            <br />
+            <i class="fa fa-check-circle fa-4x status_icons success_icon" ng-show="show_success_icon"></i>
+            <br /> {{status_msg}}
+        </md-input-container>
+    </md-dialog-content>
+</md-dialog>

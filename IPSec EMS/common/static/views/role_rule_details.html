@@ -1,0 +1,98 @@
+<div class="main" ng-controller="RoleRuleDetailsController" id='group_details'>
+
+</div>
+
+  <h1 class="page-header">Role: {{detailed_scope.name}}</h1>
+  <div class="ems_main_buttons">
+      <md-button class="md-primary md-raised create_scope_button role-detail-btn" ng-click="addRule($event)"  >
+           <i class="fa fa-plus"></i>Add Rule
+      </md-button>
+  </div>
+  
+<div class="table-reponsive" id="scope_list_details">
+  <table class="table table-striped" >
+    <tr>
+      <th>UUID</th>
+      <td>{{ detailed_scope.id }}</td>
+    </tr>
+
+    <tr>
+      <th>Name</th>
+      <td>{{ detailed_scope.name }}</td>
+    </tr>
+
+    <tr>
+      <th>Rules</th>
+      <td>
+        <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>
+                  <a href ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                  UUID
+                  <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+
+                  <th>
+                  <a href ng-click="sortType = 'order'; sortReverse = !sortReverse">
+                  Order
+                  <span ng-show="sortType == 'order' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'order' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+
+                  <th>
+                  <a href ng-click="sortType = 'resource_endpoint'; sortReverse = !sortReverse">
+                  Resource Endpoint
+                  <span ng-show="sortType == 'resource_endpoint' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'resource_endpoint' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+
+                  <th>
+                  <a href ng-click="sortType = 'permissions'; sortReverse = !sortReverse">
+                  Permission
+                  <span ng-show="sortType == 'permissions' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'permissions' && sortReverse" class="fa fa-caret-up"></span>
+                  </th>
+
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="rule in detailed_scope.rules | filter:searchText | orderBy:sortType:sortReverse">
+                <td>{{ rule.id }}</a></td>
+                <td>{{ rule.order }}</a></td>
+                <td>{{ rule.resource_endpoint }}</a></td>
+                <td><span ng-repeat="permission in rule.permissions">{{ permission }}{{ $last ? '' :', ' }}</span></td>
+                <td>
+                <div class="btn-group">
+                        <md-menu>
+                            <md-button class="md-raised md-primary actions_buttons" ng-click="$mdOpenMenu($event)"><i class="fa fa-pencil-square-o"></i>Edit Rule<span class="caret"></span></md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button ng-click="removeRule($event, rule.id)">
+                                        Remove Rule
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item>
+                                    <md-button ng-click="reorderRule($event, rule.id, rule.order)">
+                                        Reorder Rule
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Description</th>
+      <td>{{ detailed_scope.description }}</td>
+    </tr>
+  </table>
+</div>

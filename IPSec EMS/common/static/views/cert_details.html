@@ -1,0 +1,33 @@
+<div class="main" ng-controller="CertDetailsController">
+</div>
+
+<h1 class="page-header">Certificate: {{detailed_scope.name}}</h1>
+
+<div class="table-reponsive" id="scope_list_details">
+  <table class="table table-striped" >
+    <tr>
+      <th>UUID</th>
+      <td>{{ detailed_scope.id }}</td>
+    </tr>
+
+    <tr>
+      <th>Name</th>
+      <td>{{ detailed_scope.name }}</td>
+    </tr>
+
+    <tr>
+      <th>Right ID</th>
+      <td>{{ detailed_scope.right_id }}</td>
+    </tr>
+
+    <tr>
+      <th>CA Certificate</th>
+      <td>{{ detailed_scope.certificate }}</td>
+    </tr>
+
+    <tr>
+      <th>Description</th>
+      <td>{{ detailed_scope.descriptions }}</td>
+    </tr>
+  </table>
+</div>

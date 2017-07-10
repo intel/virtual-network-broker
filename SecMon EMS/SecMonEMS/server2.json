@@ -1,0 +1,19 @@
+{
+"watches": [
+{
+"type": "keyprefix",
+"prefix": "/collector/",
+"handler": "/usr/local/bin/handler2"
+}
+],
+"node_name": "server2",
+"data_dir": "/opt/consul2",
+   "ports":{
+    "dns" : -1,
+    "http" : 10500,
+    "rpc" : 10400,
+    "serf_lan" : 10301,
+    "serf_wan" : 10302,
+    "server" : 10300
+   }
+}
